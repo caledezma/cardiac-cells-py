@@ -2,7 +2,7 @@
 in the experiments assume that every model will have these attributes.
 """
 import abc
-from typing import NamedTuple, TypeVar, Any, Optional
+from typing import Any
 
 import numpy as np
 import numpy.typing as npt
