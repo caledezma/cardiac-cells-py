@@ -1,5 +1,6 @@
 """Initialise the cell models module"""
 import enum
+from typing import Union
 
 from .minimal_model.model import MinimalModel
 
