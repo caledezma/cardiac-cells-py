@@ -1,6 +1,6 @@
 """Utility functions used to run experiments."""
 import click
-from typing import Tuple
+from typing import Tuple, NamedTuple
 
 import numpy as np
 import numpy.typing as npt
@@ -9,12 +9,22 @@ from cardiac_cells_py import cell_models
 
 from cardiac_cells_py.cell_models.cell_model import CellModel
 
+
+class ModelSolution(NamedTuple):
+    """Tuple containing the solution to the PDEs of a cardiac cell model.
+    """
+    t: npt.NDArray[np.float_]
+    state_vars: npt.NDArray[np.float_]
+    currents: npt.NDArray[np.float_]
+
+
+
 def run_model(
     cell_model: CellModel,
     num_cycles: int,
     cycle_length: int,
     cell_type: str,
-) -> Tuple[npt.NDArray[np.float_], ...]:
+) -> ModelSolution:
     t = []
     state_vars = []
     currents = []
@@ -35,7 +45,7 @@ def run_model(
             )
             t.append(np.array(this_cycle.t) + cycle_length*cycle_num)
             state_vars.append(np.array(this_cycle.y))
-            this_currents = mv_model(
+            this_currents = cell_model.cell_model(
                 t=this_cycle.t,
                 state_vars=this_cycle.y,
                 params=params,
@@ -43,4 +53,8 @@ def run_model(
             )
             y0 = [state_var[-1] for state_var in this_cycle.y]
             currents.append(this_currents)
-    return np.concatenate(t), np.concatenate(state_vars, axis=1).T, np.concatenate(currents, axis=0)
+    return ModelSolution(
+        t=np.concatenate(t),
+        state_vars=np.concatenate(state_vars, axis=1).T,
+        currents=np.concatenate(currents, axis=0)
+    )

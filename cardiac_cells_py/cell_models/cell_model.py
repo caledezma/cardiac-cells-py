@@ -9,8 +9,10 @@ import numpy.typing as npt
 
 class CellModel(abc.ABC):
     """General interface to define a cell model."""
-
+    # Initial conditions to start solving the PDEs
     initial_conditions: npt.NDArray[np.float_]
+    # Index from the state variables that contains the AP signal
+    ap_index: int = 0
 
     def __init__(self):
         """Construct an instance of a cell model."""
@@ -41,3 +43,11 @@ class CellModel(abc.ABC):
         currents.
         :returns: either the derivative of the state variables or the ionic currents.
         """
+
+    def rescale_ap(
+        self,
+        state_vars: npt.NDArray[np.float_],
+    ) -> npt.NDArray[np.float_]:
+        """Rescale the state variable that contains the action potential signal so that it is in
+        mV and return it."""
+        return state_vars[:, self.ap_index]

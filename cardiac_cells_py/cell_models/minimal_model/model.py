@@ -29,6 +29,12 @@ class MinimalModel(CellModel):
         """
         return get_model_parameters(cell_type=cell_type)
 
+    def rescale_ap(
+        self,
+        state_vars: npt.NDArray[np.float_],
+    ) -> npt.NDArray[np.float_]:
+        return 85.7*state_vars[:, self.ap_index] - 84
+
     @staticmethod
     def cell_model(
         t: npt.NDArray[np.float_],
