@@ -106,5 +106,6 @@ def ap_restitution(
         plt.title("Action potential restitution curve")
         plt.savefig(f"{os.path.join(outdir, fig_base)}_restitution_curve.png")
 
+
 if __name__ == "__main__":
     ap_restitution()
