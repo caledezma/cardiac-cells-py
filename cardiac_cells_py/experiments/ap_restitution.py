@@ -22,25 +22,20 @@ from cardiac_cells_py.experiments.utils import run_model
 @click.argument("min_di", type=int)
 @click.argument("max_di", type=int)
 @click.argument("di_step", type=int)
+@click.argument("outdir", type=click.Path(exists=True))
 @click.option(
     "--s1-cl",
     default=1000,
     type=int,
-    help="Cycle length for S1 stimulations",
+    help="Cycle length for S1 stimulations.",
     show_default=True,
 )
 @click.option(
     "--steady-state-steps",
     default=50,
     type=int,
-    help="Number of S1 stimuli required to reach steady state",
+    help="Number of S1 stimuli required to reach steady state.",
     show_default=True,
-)
-@click.option(
-    "--outdir",
-    default=None,
-    help="Optionally specify an output directory to save plots.",
-    type=click.Path(exists=True),
 )
 def ap_restitution(
     cell_model,
@@ -48,11 +43,22 @@ def ap_restitution(
     min_di,
     max_di,
     di_step,
+    outdir,
     s1_cl,
     steady_state_steps,
-    outdir,
 ):
-    """Click command"""
+    """Perform an action potential restitution experiment. The experiment will do an S1 stimulation
+    at the specified cycle length and then perform an S2 stimulation at the specified dyastolic
+    interval. Results will be reported on APD90 restitution at the desired DIs.
+
+    \b
+    CELL_MODEL is the cell model to use. Must be a supported CellTypes model.
+    CELL_TYPE is the cell type to use. Must be supported by the cell model specified.
+    MIN_DI is the minimum dyastolic interval to use in milliseconds.
+    MAX_DI is the maximum dyastolic interval to use in milliseconds.
+    DI_STEP is the step size, in milliseconds, to use when increasing the DI from min to max.
+    OUTDIR specify an output directory to save plots
+    """
     assert max_di < s1_cl, "Cannot compute DI longer than the S1 cycle length"
     dyastolic_intervals = np.arange(min_di, max_di, di_step)
     model = CellModels[cell_model.upper()].value()

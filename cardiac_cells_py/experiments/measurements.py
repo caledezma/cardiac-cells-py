@@ -23,7 +23,7 @@ def extract_last_beat(
     model_solution: ModelSolution,
     cycle_length: int,
 ) -> ModelSolution:
-    """Return the last beat of a signal."""
+    """Return the last beat of a solution."""
     last_beat_start = np.nonzero(
         model_solution.t >= model_solution.t[-1] - cycle_length
     )[0][0]

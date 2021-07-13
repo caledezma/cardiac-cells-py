@@ -9,7 +9,8 @@ from .measurements import measure_apd, extract_last_beat
 from .utils import ModelSolution
 
 class ExperimentResult:
-    """Container for results of an experiment"""
+    """Container for results of an experiment. The object also performs measurements and stores them
+    as required."""
     def __init__(
         self,
         model: CellModel,
@@ -17,6 +18,7 @@ class ExperimentResult:
         cycle_length: int,
         experiment_id: str
     ):
+        """Construct the experiment result object."""
         self.model = model
         self.experiment_id = experiment_id
         self.ap_signal = model_solution.state_vars[:,0]

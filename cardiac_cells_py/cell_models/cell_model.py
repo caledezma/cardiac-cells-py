@@ -2,7 +2,7 @@
 in the experiments assume that every model will have these attributes.
 """
 import abc
-from typing import Any
+from typing import Any, List
 
 import numpy as np
 import numpy.typing as npt
@@ -12,7 +12,11 @@ class CellModel(abc.ABC):
     # Initial conditions to start solving the PDEs
     initial_conditions: npt.NDArray[np.float_]
     # Index from the state variables that contains the AP signal
-    ap_index: int = 0
+    AP_INDEX: int = 0
+    # Names of the state variables in the order that they are returned
+    STATE_VARS_NAMES: List[str] = [""]
+    # Names of the cuurrents in the order that they are returned
+    CURRENTS_NAMES: List[str] = [""]
 
     def __init__(self):
         """Construct an instance of a cell model."""

@@ -18,8 +18,11 @@ from .utils import MMParams, heaviside, get_model_parameters
 class MinimalModel(CellModel):
     """Implementation of the minimal model.
     """
+    STATE_VARS_NAMES = ["u", "v", "w", "s"]
+    CURRENTS_NAMES = ["Jfi", "Jso", "Jsi", "Jstim"]
     def __init__(self):
         self.initial_conditions = np.array([0., 1., 1., 0.])
+        self.ap_index = 0
         super().__init__()
 
     @staticmethod

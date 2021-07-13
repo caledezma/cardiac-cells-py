@@ -13,8 +13,11 @@ from cardiac_cells_py.cell_models.cell_model import CellModel
 class ModelSolution(NamedTuple):
     """Tuple containing the solution to the PDEs of a cardiac cell model.
     """
+    # Time
     t: npt.NDArray[np.float_]
+    # State variables
     state_vars: npt.NDArray[np.float_]
+    # Resulting currents computed from the state variables
     currents: npt.NDArray[np.float_]
 
 
@@ -24,8 +27,10 @@ def run_model(
     cycle_length: int,
     cell_type: str,
     initial_conditions: Optional[npt.NDArray[np.float_]] = None,
-    verbose: bool = True,
 ) -> ModelSolution:
+    """Solve the partial differential equations of a cell model using the input parameters
+    specified by the user. If no initial conditions are provided, the standard conditions from
+    the model will be used."""
     t = []
     state_vars = []
     currents = []
