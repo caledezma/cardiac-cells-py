@@ -3,7 +3,7 @@ from typing import Tuple
 import numpy as np
 import numpy.typing as npt
 
-from .utils import ModelSolution
+from cardiac_cells_py.experiments.utils import ModelSolution
 
 def measure_apd(
     t: npt.NDArray[np.float_],

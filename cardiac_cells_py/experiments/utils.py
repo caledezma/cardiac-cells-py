@@ -1,6 +1,6 @@
 """Utility functions used to run experiments."""
 import click
-from typing import Tuple, NamedTuple
+from typing import Tuple, NamedTuple, Optional
 
 import numpy as np
 import numpy.typing as npt
@@ -18,21 +18,22 @@ class ModelSolution(NamedTuple):
     currents: npt.NDArray[np.float_]
 
 
-
 def run_model(
     cell_model: CellModel,
     num_cycles: int,
     cycle_length: int,
     cell_type: str,
+    initial_conditions: Optional[npt.NDArray[np.float_]] = None,
+    verbose: bool = True,
 ) -> ModelSolution:
     t = []
     state_vars = []
     currents = []
-    y0 = cell_model.initial_conditions
+    y0 = initial_conditions if initial_conditions is not None else cell_model.initial_conditions
     params = cell_model.parameters(cell_type=cell_type)
     with click.progressbar(
         range(num_cycles),
-        label="Computing AP signals"
+        label="Computing AP signals",
     ) as cycles:
         for cycle_num in cycles:
             this_cycle = solve_ivp(
