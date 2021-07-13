@@ -13,7 +13,7 @@ def measure_apd(
     """Measure the action potential duration at the repolarisation percentage specified.
     The signal must contain only one action potential and the stimulation must happen at t=0.
     """
-    ap_max, max_location = np.max(ap_signal), np.argmax(ap_signal)
+    ap_max, max_location = np.max(ap_signal), int(np.argmax(ap_signal))
     rep_value = (1 - repolarisation_percent/100) * ap_max
     apd_x = np.nonzero(ap_signal[max_location:] <= rep_value)[0][0]
     return t[max_location+apd_x]

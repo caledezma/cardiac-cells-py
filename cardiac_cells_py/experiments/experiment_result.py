@@ -34,7 +34,7 @@ class ExperimentResult:
         if apd_x is None:
             apd_x = measure_apd(
                 t=self.last_beat.t,
-                ap_signal=self.last_beat.state_vars[:, self.model.ap_index],
+                ap_signal=self.last_beat.state_vars[:, self.model.AP_INDEX],
                 repolarisation_percent=repolarisation_percent,
             )
             self.apd_x[repolarisation_percent] = apd_x

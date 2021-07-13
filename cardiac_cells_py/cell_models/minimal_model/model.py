@@ -20,10 +20,8 @@ class MinimalModel(CellModel):
     """
     STATE_VARS_NAMES = ["u", "v", "w", "s"]
     CURRENTS_NAMES = ["Jfi", "Jso", "Jsi", "Jstim"]
-    def __init__(self):
-        self.initial_conditions = np.array([0., 1., 1., 0.])
-        self.ap_index = 0
-        super().__init__()
+    INITIAL_CONDITIONS = np.array([0., 1., 1., 0.])
+    AP_INDEX = 0
 
     @staticmethod
     def parameters(cell_type: str) -> MMParams:
@@ -36,7 +34,7 @@ class MinimalModel(CellModel):
         self,
         state_vars: npt.NDArray[np.float_],
     ) -> npt.NDArray[np.float_]:
-        return 85.7*state_vars[:, self.ap_index] - 84
+        return 85.7*state_vars[:, self.AP_INDEX] - 84
 
     @staticmethod
     def cell_model(

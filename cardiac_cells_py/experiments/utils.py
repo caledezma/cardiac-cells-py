@@ -34,7 +34,7 @@ def run_model(
     t = []
     state_vars = []
     currents = []
-    y0 = initial_conditions if initial_conditions is not None else cell_model.initial_conditions
+    y0 = initial_conditions if initial_conditions is not None else cell_model.INITIAL_CONDITIONS
     params = cell_model.parameters(cell_type=cell_type)
     with click.progressbar(
         range(num_cycles),
@@ -57,7 +57,7 @@ def run_model(
                 params=params,
                 ret_ode=False
             )
-            y0 = [state_var[-1] for state_var in this_cycle.y]
+            y0 = np.array([state_var[-1] for state_var in this_cycle.y])
             currents.append(this_currents)
     return ModelSolution(
         t=np.concatenate(t),
