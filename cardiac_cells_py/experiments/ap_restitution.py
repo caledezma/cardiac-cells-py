@@ -62,6 +62,7 @@ def ap_restitution(
     assert max_di < s1_cl, "Cannot compute DI longer than the S1 cycle length"
     dyastolic_intervals = np.arange(min_di, max_di, di_step)
     model = CellModels[cell_model.upper()].value()
+    click.echo("Obtaining steady state result")
     ss_solution = run_model(
         cell_model=model,
         cell_type=cell_type,
@@ -89,7 +90,6 @@ def ap_restitution(
                 num_cycles=1,
                 cycle_length=1000,
                 initial_conditions=initial_conditions,
-                verbose=False,
             ),
             cycle_length=1000,
             experiment_id=f"ap_res_{di}di"

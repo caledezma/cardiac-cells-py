@@ -12,15 +12,15 @@ class CellModel(abc.ABC):
     # Initial conditions to start solving the PDEs
     INITIAL_CONDITIONS: npt.NDArray[np.float_]
     # Index from the state variables that contains the AP signal
-    AP_INDEX: int = 0
+    AP_INDEX: int
     # Names of the state variables in the order that they are returned
-    STATE_VARS_NAMES: List[str] = [""]
+    STATE_VARS_NAMES: List[str]
     # Names of the cuurrents in the order that they are returned
-    CURRENTS_NAMES: List[str] = [""]
+    CURRENTS_NAMES: List[str]
 
     def __init__(self):
         """Construct an instance of a cell model."""
-        assert self.initial_conditions is not None,\
+        assert self.INITIAL_CONDITIONS is not None,\
             f"{self.__class__.__name__} did not define its initial conditions."
 
     @staticmethod

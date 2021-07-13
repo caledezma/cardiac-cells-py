@@ -36,3 +36,17 @@ following experiments are available:
 potential shape, state variables and resulting currents.
 - `ap-restitution`: performs an APD90 restitution experiment on the cell model and reports the
 APD90 restitution curve.
+
+## Type checks
+
+The repo rellies on type checking to ensure that inputs and outputs of functions remain adequate as
+the codebase evolves. If you would like to contribute to the repo, please ensure that you install
+it with the mypy option:
+```
+pip install -e .[mypy]
+```
+
+and that you run type checks on the entire `cardiac-cells-py` repo before commiting your code:
+```
+mypy cardiac-cells-py --ignore-missing-imports
+```
