@@ -54,6 +54,8 @@ def steady_state(cell_model, cell_type, num_cycles, cycle_length, outdir):
         plt.ylabel("Action potential (mV)")
         plt.savefig(f"{os.path.join(outdir, fig_base)}_last_beat.png")
 
+        plt.close('all')
+
 
 if __name__ == "__main__":
     steady_state()
